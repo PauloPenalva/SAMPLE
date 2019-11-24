@@ -1,0 +1,14 @@
+{
+    "welcomeFile": "index.html",
+    "routes": [
+      {
+        "path": "/z_northwind",
+        "target": {
+          "type": "destination",
+          "name": "northwind",
+          "entryPath": "/"
+        }
+      }
+    ]
+
+  }
