@@ -6,7 +6,7 @@
             "target": {
                 "type": "service",
                 "name": "sapui5",
-                "entryPath": "/resources/1.69.0/"
+                "entryPath": "/resources/"
             }
         },
         {
@@ -14,7 +14,7 @@
             "target": {
                 "type": "service",
                 "name": "sapui5",
-                "entryPath": "/resources/1.69.0/"
+                "entryPath": "/resources/"
             }
         },
         {
