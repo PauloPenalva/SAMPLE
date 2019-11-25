@@ -1,6 +1,0 @@
-{
-    "northwind": {
-        "target": "https://services.odata.org",
-        "useProxy": true
-      }
-}

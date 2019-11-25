@@ -1,0 +1,8 @@
+{
+    "sapui5": {
+        "target": "https://ui5.sap.com"
+    },
+    "default": {
+        "target": "https://services.odata.org"
+    }
+}

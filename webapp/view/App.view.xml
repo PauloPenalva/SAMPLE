@@ -1,0 +1,43 @@
+ <mvc:View controllerName="br.com.idxtec.Sample.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<App id="idAppControl">
+		<pages>
+			<Page title="{i18n>title}" >
+				<content>
+                    <Table xmlns="sap.ui.table"
+                        class="sapUiSizeCondensed"
+                        alternateRowColors="true"
+                        visibleRowCountMode="Auto"
+                        selectionMode="Single"
+                        rows="{
+                            path: '/Airports'
+                        }">
+                    
+                        <columns>
+                            <Column width="5rem">
+                                <Label xmlns="sap.m" text="Code" />
+                                <template>
+                                    <Text xmlns="sap.m" text="{IcaoCode}" />
+                                </template>
+                            </Column>
+                            <Column>
+                                <Label xmlns="sap.m" text="Name" />
+                                <template>
+                                    <Text xmlns="sap.m" text="{Name}" />
+                                </template>
+                            </Column>
+                        </columns>
+                    </Table>
+                </content>
+                <footer>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://synchronize" text="{i18n>BTN_REFRESH}" press=".refresh"/>
+                    </Toolbar>
+                </footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View> 

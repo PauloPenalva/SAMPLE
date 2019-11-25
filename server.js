@@ -1,30 +1,64 @@
-//@ts-nocheck
-const express = require("express");
-const express_ui5 = require("express-sapui5");
+//@ts-nocheck 
+const express = require('express');
+const proxy = require("http-proxy-middleware");
+const open = require('open');
+
+const port = process.env.PORT || 3000;
+
+const app = express();
+
+app.use( (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
+
+app.use('/webapp', express.static("webapp"));
 
 let oConfig = {
     neoApp: require("./neo-app.json"),
-    destinations: require("./neo-dest.json"),
-    version: "1.69.0"
+    destinations: require("./destinations.json")
 };
 
-// initialize environment variables
-require("dotenv").config();
+let oNeoApp = oConfig.neoApp,
+    oDestinations = oConfig.destinations
 
-// proxy initializtion
-if (process.env.HTTP_PROXY) {
-    const HttpsProxyAgent = require("https-proxy-agent");
-    oConfig.agent = new HttpsProxyAgent(process.env.HTTP_PROXY);
+if (oNeoApp && oNeoApp.routes) {
+    oNeoApp.routes.forEach(oRoute => {
+        var oTarget = oRoute.target;
+        if (oTarget) {
+
+            var oOptions = {};
+
+            if (oDestinations && oTarget.name) {
+                var oDestination = oDestinations[oTarget.name];
+                if (oDestination) {
+                    oOptions.target = oDestination.target;
+                    oOptions.changeOrigin = true;
+                    oOptions.secure = true;
+                }
+            }
+
+            if (oRoute.path && oTarget.entryPath) {
+                var oRouteNew = {};
+                var sPathOld = "^" + oRoute.path;
+                oRouteNew[sPathOld] = oTarget.entryPath;
+                oOptions.pathRewrite = oRouteNew;
+            }
+
+            app.use(oRoute.path, proxy(oOptions));
+        }
+    });
 }
 
-let app = express();
+app.listen(port, () => {
+    console.log("\n\n*** IDX Consultoria e Sistemas ***");
+    console.log("")
+    console.log(`Servidor rodando em http://localhost:${port}`);
+    console.log('Para derrubar o servidor: CTRL + C');
+});
 
-//sapui5 middleware
-app.use(express_ui5(oConfig));
-
-//static paths
-//["appconfig", "resources"].forEach(function (sPath) {
-//    app.use("/" + sPath, express.static(sPath));
-//});
-
-app.listen(process.env.PORT || 3000);
+(async () => {
+    await open(`http://localhost:${port}/webapp/`);
+})();
