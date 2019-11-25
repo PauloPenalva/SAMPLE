@@ -10,13 +10,13 @@
         "build": "rimraf dist && ui5 build --a"
     },
     "devDependencies": {
-        "dotenv": "^6.0.0",
-        "express": "^4.16.3",
-        "@ui5/cli": "^1.10.0",
         "@openui5/ts-types": "^1.60.3",
+        "@ui5/cli": "^1.10.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.16.3",
+        "http-proxy-middleware": "^0.17.4",
         "morgan": "^1.9.1",
         "open": "^6.4.0",
-        "rimraf": "^2.6.3",
-        "http-proxy-middleware": "^0.17.4"
+        "rimraf": "^2.6.3"
     }
 }

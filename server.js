@@ -3,6 +3,8 @@ const express = require('express');
 const proxy = require("http-proxy-middleware");
 const open = require('open');
 
+require("dotenv").config();
+
 const port = process.env.PORT || 3000;
 
 const app = express();
