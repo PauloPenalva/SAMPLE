@@ -18,11 +18,11 @@
             }
         },
         {
-            "path": "/TripPinRESTierService",
+            "path": "/odata",
             "target": {
                 "type": "destination",
                 "name": "default",
-                "entryPath": "/TripPinRESTierService"
+                "entryPath": "/odata"
             }
         }
         

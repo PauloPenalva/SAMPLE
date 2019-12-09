@@ -3,6 +3,6 @@
         "target": "https://ui5.sap.com"
     },
     "default": {
-        "target": "https://services.odata.org"
+        "target": "http://localhost:5000"
     }
 }

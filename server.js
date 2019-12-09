@@ -38,7 +38,7 @@ if (oNeoApp && oNeoApp.routes) {
                 if (oDestination) {
                     oOptions.target = oDestination.target;
                     oOptions.changeOrigin = true;
-                    oOptions.secure = true;
+                    oOptions.secure = false;
                 }
             }
 

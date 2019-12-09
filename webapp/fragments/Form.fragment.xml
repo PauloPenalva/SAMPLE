@@ -1,0 +1,35 @@
+<core:FragmentDefinition
+   	xmlns="sap.m"
+   	xmlns:core="sap.ui.core">
+   	
+        <SimpleForm xmlns="sap.ui.layout.form"
+					id="form"
+					editable="true"
+					layout="ResponsiveGridLayout"
+					labelSpanXL="4"
+					labelSpanL="4"
+					labelSpanM="4"
+					labelSpanS="12"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="3"
+					columnsL="2"
+					columnsM="2"
+					singleContainerFullSize="true"
+                    title="{i18n>FORM_TITLE}">
+					<content>
+                        <Title xmlns="sap.ui.core" text="{i18n>FORM_SUB_TITLE}"/>
+                        <Label xmlns="sap.m" text="{i18n>FORM_LABEL_ID}" />
+                        <Input xmlns="sap.m" value="{Id}" editable="false" width="100px" />
+
+                        <Label xmlns="sap.m" text="{i18n>FORM_LABEL_DESC}" />
+                        <Input xmlns="sap.m" value="{Descricao}" required="true" />
+
+                        <Title xmlns="sap.ui.core" />
+                    </content>
+            </SimpleForm>        
+            
+</core:FragmentDefinition>

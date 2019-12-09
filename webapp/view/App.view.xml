@@ -2,30 +2,31 @@
 	displayBlock="true"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
-	<App id="idAppControl">
+	<App id="app">
 		<pages>
 			<Page title="{i18n>title}" >
 				<content>
                     <Table xmlns="sap.ui.table"
+                        id="table"
                         class="sapUiSizeCondensed"
                         alternateRowColors="true"
                         visibleRowCountMode="Auto"
                         selectionMode="Single"
                         rows="{
-                            path: '/Airports'
+                            path: '/Produtos'
                         }">
                     
                         <columns>
-                            <Column width="5rem">
-                                <Label xmlns="sap.m" text="Code" />
+                            <Column width="8rem">
+                                <Label xmlns="sap.m" text="{i18n>TABLE_COLUMN_LABEL_1}" />
                                 <template>
-                                    <Text xmlns="sap.m" text="{IcaoCode}" />
+                                    <Text xmlns="sap.m" text="{Id}" />
                                 </template>
                             </Column>
                             <Column>
-                                <Label xmlns="sap.m" text="Name" />
+                                <Label xmlns="sap.m" text="{i18n>TABLE_COLUMN_LABEL_2}" />
                                 <template>
-                                    <Text xmlns="sap.m" text="{Name}" />
+                                    <Text xmlns="sap.m" text="{Descricao}" />
                                 </template>
                             </Column>
                         </columns>
@@ -34,6 +35,9 @@
                 <footer>
                     <Toolbar>
                         <ToolbarSpacer />
+                        <Button text="{i18n>BTN_ADD}" press=".add"/>
+                        <Button text="{i18n>BTN_EDIT}" press=".edit"/>
+                        <Button text="{i18n>BTN_DELETE}" press=".delete" />
                         <Button icon="sap-icon://synchronize" text="{i18n>BTN_REFRESH}" press=".refresh"/>
                     </Toolbar>
                 </footer>

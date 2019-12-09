@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
 			"default":{
-				"uri": "/TripPinRESTierService/",
+				"uri": "/odata/service.svc/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "4.0"
@@ -72,7 +72,7 @@
 					"synchronizationMode": "None",
 					"updateGroupId" : "updGroup",
 					"autoExpandSelect": true,
-					"groupId": "$direct"
+					"groupId": "$auto"
 				}
 			}
 		},
@@ -92,14 +92,32 @@
 			},
 			"routes": [{
 				"name": "RouteApp",
-				"pattern": "RouteApp",
+				"pattern": "",
 				"target": ["TargetApp"]
+			},{
+				"name": "Add",
+				"pattern": "Add",
+				"target": "Add"
+			},{
+				"name": "Edit",
+				"pattern": "Edit/{id}",
+				"target": "Edit"
 			}],
 			"targets": {
 				"TargetApp": {
 					"viewType": "XML",
 					"viewLevel": 1,
 					"viewName": "App"
+				},
+				"Add": {
+					"viewType": "XML",
+					"viewLevel": 2,
+					"viewName": "Add"
+				},
+				"Edit": {
+					"viewType": "XML",
+					"viewLevel": 2,
+					"viewName": "Edit"
 				}
 			}
 		}
