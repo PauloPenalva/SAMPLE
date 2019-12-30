@@ -2,8 +2,9 @@
 sap.ui.define([
     "./BaseController",
     "./ErrorHandler",
-    "sap/m/MessageBox"
-], function (Controller, ErrorHandler, MessageBox) {
+    "sap/m/MessageBox",
+    "libs/utill"
+], function (Controller, ErrorHandler, MessageBox, utill) {
     "use strict";
 
     return Controller.extend("br.com.idxtec.Sample.controller.App", {
@@ -12,6 +13,8 @@ sap.ui.define([
             const oView = this.getView();
             oView.addStyleClass(this.getOwnerComponent().getContentDensityClass());
             this._oErrorHandler = new ErrorHandler(this);
+
+            utill.alert();
         },
 
         onExit: function () {

@@ -1,4 +1,6 @@
+/* eslint-disable strict */
 //@ts-nocheck 
+
 const express = require('express');
 const proxy = require("http-proxy-middleware");
 const open = require('open');
@@ -16,6 +18,7 @@ app.use( (req, res, next) => {
     next();
 });
 
+app.use("/", express.static("../"));
 app.use('/webapp', express.static("webapp"));
 
 let oConfig = {
