@@ -1,9 +1,8 @@
 //@ts-nocheck
 sap.ui.define([
     "./BaseController",
-    "./ErrorHandler",
     "sap/m/MessageBox"
-], function (Controller, ErrorHandler, MessageBox) {
+], function (Controller, MessageBox) {
     "use strict";
 
     return Controller.extend("br.com.idxtec.Sample.controller.Add", {
@@ -11,20 +10,11 @@ sap.ui.define([
         onInit: function () {
             this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
             var oRouter = this.getRouter();
-            
-            oRouter.getRoute("Add").attachMatched(this.routerMatch, this);
-            this._oErrorHandler = new ErrorHandler(this);
+
+            oRouter.getRoute("Add").attachMatched(this._routerMatch, this);
         },
-    
-    
-        onExit: function(){
-          this._oErrorHandler.destroy();
-        },
-        
-        /**
-         * @private
-         */
-        routerMatch: function () {
+
+        _routerMatch: function () {
             const oView = this.getView();
             const oModel = this.getModel();
             const oBinding = oModel.bindList("/Produtos");
@@ -41,11 +31,11 @@ sap.ui.define([
 
             try {
                 await oModel.submitBatch("updGroup");
-                if ( !oModel.hasPendingChanges() ) {
-                    MessageBox.success("Dados Gravados !",{
-                        onClose: function() { 
+                if (!oModel.hasPendingChanges()) {
+                    MessageBox.success("Dados Gravados !", {
+                        onClose: function () {
                             oModel.refresh();
-                            this.onNavBack() ;
+                            this.onNavBack();
                         }.bind(this)
                     });
                 }
@@ -56,11 +46,11 @@ sap.ui.define([
             }
         },
 
-        cancel: function() {
-            if (this.getModel().hasPendingChanges()){
+        cancel: function () {
+            if (this.getModel().hasPendingChanges()) {
                 this.getModel().resetChanges();
             }
-            
+
             this.onNavBack();
         }
 

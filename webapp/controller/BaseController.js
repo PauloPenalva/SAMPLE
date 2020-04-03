@@ -1,20 +1,34 @@
 //@ts-nocheck
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageBox"
-], function (Controller, MessageBox){
+    "sap/m/MessageBox",
+    "sap/ui/core/UIComponent"
+], function (Controller, MessageBox, UIComponent){
     "use strict";
 
     return Controller.extend("BaseController", {
 
-        getModel: function(sModel){
-			return this.getOwnerComponent().getModel(sModel);
-		},
-		
-		getRouter: function() {
-			return sap.ui.core.UIComponent.getRouterFor(this);
+        getRouter: function() {
+			return UIComponent.getRouterFor(this);
         },
 
+        getModel : function (sName) {
+			return this.getView().getModel(sName);
+		},
+
+		setModel : function (oModel, sName) {
+			return this.getView().setModel(oModel, sName);
+		},
+
+		/**
+		 * Getter for the resource bundle.
+		 * @public
+		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
+		 */
+		getResourceBundle : function () {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
+        
         onNavBack: function () {
 			var oHistory, sPreviousHash;
 
@@ -47,6 +61,7 @@ sap.ui.define([
         
         }
 
+       
     });
 
 });

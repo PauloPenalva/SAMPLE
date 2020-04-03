@@ -87,7 +87,12 @@
 				"viewType": "XML",
 				"viewPath": "br.com.idxtec.Sample.view",
 				"controlId": "app",
-				"controlAggregation": "pages",
+                "controlAggregation": "pages",
+                "bypassed": {
+					"target": [
+						"notFound"
+					]
+				},
 				"async": true
 			},
 			"routes": [{
@@ -118,6 +123,13 @@
 					"viewType": "XML",
 					"viewLevel": 2,
 					"viewName": "Edit"
+                },
+                "objectNotFound": {
+					"viewName": "ObjectNotFound",
+					"viewId": "objectNotFound"
+				},
+                "notFound": {
+					"viewName": "NotFound"
 				}
 			}
 		}

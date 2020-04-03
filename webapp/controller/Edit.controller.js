@@ -1,36 +1,61 @@
 //@ts-nocheck
 sap.ui.define([
     "./BaseController",
-    "./ErrorHandler",
-    "sap/m/MessageBox"
-], function (Controller, ErrorHandler, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/model/json/JSONModel"
+], function (Controller, MessageBox, JSONModel) {
     "use strict";
 
     return Controller.extend("br.com.idxtec.Sample.controller.Edit", {
 
         onInit: function () {
-            this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
-            var oRouter = this.getRouter();
+            var oViewModel = new JSONModel({
+                busy : true,
+                delay : 0
+            });
+
+            this.getRouter().getRoute("Edit").attachMatched(this._onObjectMatched, this);
+            this.setModel(oViewModel, "objectView");
+        },
+    
+        _onObjectMatched: function (oEvent) {
+            let id = oEvent.getParameter("arguments").id;
+            this._bindView("/Produtos(" + id + ")");
+        },
+
+        _bindView : function (sObjectPath) {
+			var oViewModel = this.getModel("objectView");
+
+			this.getView().bindElement({
+				path: sObjectPath,
+				events: {
+					change: this._onBindingChange.bind(this),
+					dataRequested: function () {
+						oViewModel.setProperty("/busy", true);
+					},
+					dataReceived: function () {
+						oViewModel.setProperty("/busy", false);
+					}
+				}
+			});
+		},
+
+		_onBindingChange : function () {
+			var oView = this.getView(),
+				oViewModel = this.getModel("objectView"),
+				oElementBinding = oView.getElementBinding();
+
+			// No data for the binding
+			if (!oElementBinding.getBoundContext()) {
+				this.getRouter().getTargets().display("objectNotFound");
+				return;
+			}
             
-            oRouter.getRoute("Edit").attachMatched(this.routerMatch, this);
-            this._oErrorHandler = new ErrorHandler(this);
+			oView.getBindingContext().requestObject().then((function (oObject) {
+				oViewModel.setProperty("/busy", false);
+			}).bind(this));
         },
-    
-    
-        onExit: function(){
-          this._oErrorHandler.destroy();
-        },
-
-        /**
-         * @private
-         * @param {sap.ui.core.EventBus} oEvent Router Event
-         */
-        routerMatch: function (oEvent) {
-            const oView = this.getView();
-            const id = oEvent.getParameter("arguments").id;
-            oView.bindElement("/Produtos(" + id + ")"); 
-        },
-
+        
         save: async function () {
             var oModel = this.getModel();
             var oView = this.getView();
