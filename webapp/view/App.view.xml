@@ -1,12 +1,13 @@
  <mvc:View controllerName="br.com.idxtec.Sample.controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
+    xmlns:t="sap.ui.table"
 	xmlns:mvc="sap.ui.core.mvc">
 	<App id="app">
 		<pages>
 			<Page title="{i18n>title}" >
 				<content>
-                    <Table xmlns="sap.ui.table"
+                    <t:Table 
                         id="table"
                         class="sapUiSizeCondensed"
                         alternateRowColors="true"
@@ -15,30 +16,36 @@
                         rows="{
                             path: '/Produtos'
                         }">
-                    
-                        <columns>
-                            <Column width="8rem">
-                                <Label xmlns="sap.m" text="{i18n>TABLE_COLUMN_LABEL_1}" />
-                                <template>
-                                    <Text xmlns="sap.m" text="{Id}" />
-                                </template>
-                            </Column>
-                            <Column>
-                                <Label xmlns="sap.m" text="{i18n>TABLE_COLUMN_LABEL_2}" />
-                                <template>
-                                    <Text xmlns="sap.m" text="{Descricao}" />
-                                </template>
-                            </Column>
-                        </columns>
-                    </Table>
+                        <t:extension>
+                            <Toolbar>
+                                <Title level="Auto" text="{i18n>AppView.ProductsList}"/>
+                                <ToolbarSpacer />
+                                <SearchField placeholder="{i18n>AppView.Search}" search="search"  width="30%"/>    
+                            </Toolbar>
+                        </t:extension>
+                        <t:columns>
+                            <t:Column width="8rem" filterProperty="Id" filterOperator="EQ" sortProperty="Id">
+                                <Label text="{i18n>TABLE_COLUMN_LABEL_1}" />
+                                <t:template>
+                                    <Text text="{Id}" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="Descricao" sortProperty="Descricao">
+                                <Label text="{i18n>TABLE_COLUMN_LABEL_2}" />
+                                <t:template>
+                                    <Text text="{Descricao}" />
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                    </t:Table>
                 </content>
                 <footer>
                     <Toolbar>
                         <ToolbarSpacer />
-                        <Button text="{i18n>BTN_ADD}" press=".add"/>
-                        <Button text="{i18n>BTN_EDIT}" press=".edit"/>
-                        <Button text="{i18n>BTN_DELETE}" press=".delete" />
-                        <Button icon="sap-icon://synchronize" text="{i18n>BTN_REFRESH}" press=".refresh"/>
+                        <Button text="{i18n>BTN_ADD}" press="add"/>
+                        <Button text="{i18n>BTN_EDIT}" press="edit"/>
+                        <Button text="{i18n>BTN_DELETE}" press="delete" />
+                        <Button icon="sap-icon://synchronize" text="{i18n>BTN_REFRESH}" press="refresh"/>
                     </Toolbar>
                 </footer>
 			</Page>

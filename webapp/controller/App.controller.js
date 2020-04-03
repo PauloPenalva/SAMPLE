@@ -1,8 +1,10 @@
 //@ts-nocheck
 sap.ui.define([
     "./BaseController",
-    "sap/m/MessageBox"
-], function (Controller, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (Controller, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("br.com.idxtec.Sample.controller.App", {
@@ -20,6 +22,18 @@ sap.ui.define([
             }
 
             oModel.refresh();
+        },
+
+        search: function (oEvent) {
+            let sQuery = oEvent.getParameter("query");
+            let oTable = this.byId("table");
+            let aFilters = [];
+
+            if (sQuery) {
+                aFilters.push( new Filter("Descricao", FilterOperator.Contains, sQuery));
+            }
+            
+            oTable.getBinding("rows").filter(aFilters);
         },
 
         add: function () {
@@ -49,7 +63,7 @@ sap.ui.define([
             if (oContext) {
                 oView.setBusy(true);
                 try {
-                    if ( await this.messageBoxNoYes() == "YES" ){
+                    if (await this.messageBoxNoYes() == "YES") {
                         await oContext.delete("$auto");
                         oTable.clearSelection();
                     }
@@ -62,5 +76,5 @@ sap.ui.define([
         }
 
     });
-    
+
 });

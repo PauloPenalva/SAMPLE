@@ -20,17 +20,12 @@ sap.ui.define([
 			return this.getView().setModel(oModel, sName);
 		},
 
-		/**
-		 * Getter for the resource bundle.
-		 * @public
-		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
-		 */
 		getResourceBundle : function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
         },
         
         onNavBack: function () {
-			var oHistory, sPreviousHash;
+			let oHistory, sPreviousHash;
 
 			oHistory = sap.ui.core.routing.History.getInstance();
 			sPreviousHash = oHistory.getPreviousHash();
@@ -38,30 +33,26 @@ sap.ui.define([
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				this.getRouter().navTo("RouteApp", {}, true /*no history*/);
+				this.getRouter().navTo("App", {}, true /*no history*/);
 			}
         },
 
-
         messageBoxNoYes: function () {
-            
+            let sMessage = this.getResourceBundle().getText("BaseController.ExcluirItemSelecionado");
+            let sTitle = this.getResourceBundle().getText("BaseController.Excluso")
+
             return new Promise( resolve => {
                 MessageBox.show(
-                    "Excluir item selecionado ?", {
+                    sMessage, {
                     "icon": MessageBox.Icon.QUESTION,
-                    "title": "Exclusão",
+                    "title": sTitle,
                     "actions": [MessageBox.Action.NO, MessageBox.Action.YES],
                     "onClose": function (sAction) {
                         resolve(sAction)
                     }
-            
                 });
-            
             });    
-        
         }
-
-       
-    });
+  });
 
 });

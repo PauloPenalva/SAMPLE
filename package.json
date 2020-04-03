@@ -7,10 +7,11 @@
     },
     "scripts": {
         "start": "ui5 serve -o index.html",
+        "start-dist": "ui5 serve -o index.html --config ui5-dist.yaml",
         "build": "ui5 build --clean-dest --include-task=generateManifestBundle generateCachebusterInfo"
     },
     "devDependencies": {
-        "@openui5/ts-types": "^1.60.3",
+        "@openui5/ts-types": "^1.60.5",
         "@ui5/cli": "^1.14.0",
         "ui5-middleware-simpleproxy": "^0.2.0"
     },
